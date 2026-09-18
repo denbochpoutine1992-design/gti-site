@@ -9,23 +9,24 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --paper:#FAF8F4;
-    --paper-raised:#FFFFFF;
-    --ink:#181A1E;
-    --ink-soft:#53565C;
-    --line:#E2DED4;
-    --cyan:#0090C8;
-    --magenta:#D6006F;
-    --yellow:#E8AE00;
-    --navy:#1F4E9C;
-    --focus:#0090C8;
+:root{
+  --paper:#F5F8FC;
+  --paper-raised:#FFFFFF;
+  --ink:#07111F;
+  --ink-soft:#526173;
+  --line:#DCE5EF;
+  --cyan:#0B5ED7;
+  --magenta:#19A7FF;
+  --yellow:#F5B942;
+  --navy:#071A33;
+  --focus:#19A7FF;
+
     font-family:'Inter',system-ui,sans-serif;
   }
   :root:not([data-theme="light"]){
     /* fallback if system prefers dark, unless explicitly forced light */
   }
-  @media (prefers-color-scheme: dark){
+  :root[data-theme="dark"]{
     :root:not([data-theme="light"]){
       --paper:#15161A;
       --paper-raised:#1D1F24;
@@ -83,10 +84,15 @@
 
   /* ---- header ---- */
   header{
-    position:sticky;top:0;z-index:50;
-    background:color-mix(in srgb, var(--paper) 88%, transparent);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid var(--line);
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,0.94);
+  backdrop-filter:blur(14px);
+  -webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 4px 20px rgba(7,17,31,0.06);
+  }
   }
   .header-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 24px;}
   .brand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;white-space:nowrap;}
@@ -101,15 +107,22 @@
   .btn{
     display:inline-flex;align-items:center;justify-content:center;gap:8px;
     padding:11px 20px;border-radius:3px;font-weight:600;font-size:14.5px;
-    border:1.5px solid var(--ink);white-space:nowrap;transition:transform .12s ease, background .15s;
+    border:1.5px solid var(--ink);white-space:nowrap;transition:transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
   }
   .btn-solid{background:var(--ink);color:var(--paper);}
-  .btn-solid:hover{transform:translateY(-1px);}
+  .btn-solid:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 25px rgba(7,17,31,0.16);
+  }
   .btn-line{background:transparent;color:var(--ink);}
   .btn-line:hover{background:var(--ink);color:var(--paper);}
   .btn-wa{border-color:#159A48;background:#159A48;color:#fff;}
-  .btn-wa:hover{background:#12833d;}
-  .menu-toggle{display:none;background:none;border:1.5px solid var(--line);border-radius:3px;width:40px;height:40px;align-items:center;justify-content:center;}
+  .btn-wa:hover{
+  background:#12833d;
+  transform:translateY(-2px);
+  box-shadow:0 10px 24px rgba(21,154,72,0.22);
+  }
+  .menu-toggle{display:none;background:none;border:1.5px solid var(--line);border-radius:10px; width:40px;height:40px;align-items:center;justify-content:center;}
   .menu-toggle svg{width:20px;height:20px;}
 
   /* ---- hero ---- */
