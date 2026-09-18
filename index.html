@@ -26,29 +26,21 @@
   :root:not([data-theme="light"]){
     /* fallback if system prefers dark, unless explicitly forced light */
   }
-  :root[data-theme="dark"]{
-    :root:not([data-theme="light"]){
-      --paper:#15161A;
-      --paper-raised:#1D1F24;
-      --ink:#F1EFE9;
-      --ink-soft:#B7B4AC;
-      --line:#33353B;
-      --cyan:#3FC1F0;
-      --magenta:#FF4FA0;
-      --yellow:#F5C542;
-      --navy:#7FA6E8;
-    }
-  }
-  :root[data-theme="dark"]{
-    --paper:#15161A;
-    --paper-raised:#1D1F24;
-    --ink:#F1EFE9;
-    --ink-soft:#B7B4AC;
-    --line:#33353B;
-    --cyan:#3FC1F0;
-    --magenta:#FF4FA0;
-    --yellow:#F5C542;
-    --navy:#7FA6E8;
+  :root:not([data-theme="light"]){
+  /* mode sombre automatique désactivé pour garder l'identité GTI stable */
+}
+
+:root[data-theme="dark"]{
+  --paper:#07111F;
+  --paper-raised:#0D2138;
+  --ink:#F5F8FC;
+  --ink-soft:#B8C7D9;
+  --line:#203A55;
+  --cyan:#19A7FF;
+  --magenta:#4DB8FF;
+  --yellow:#F5C542;
+  --navy:#071A33;
+}
   }
 
   *{box-sizing:border-box;}
@@ -92,8 +84,7 @@
   -webkit-backdrop-filter:blur(14px);
   border-bottom:1px solid var(--line);
   box-shadow:0 4px 20px rgba(7,17,31,0.06);
-  }
-  }
+}
   .header-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 24px;}
   .brand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;white-space:nowrap;}
   .brand .mark{width:38px;height:38px;flex:none;}
@@ -107,7 +98,7 @@
   .btn{
     display:inline-flex;align-items:center;justify-content:center;gap:8px;
     padding:11px 20px;border-radius:3px;font-weight:600;font-size:14.5px;
-    border:1.5px solid var(--ink);white-space:nowrap;transition:transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
+    border:1.5px solid var(--ink);white-space:nowrap;transition:transform .2s ease, background .2s ease, box-shadow .2s ease;
   }
   .btn-solid{background:var(--ink);color:var(--paper);}
   .btn-solid:hover{
