@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTI — Guikiné Tech Ivoire | Matériel informatique &amp; consommables à Abidjan</title>
+<meta name="description" content="GTI - Guikiné Tech Ivoire : vente d'imprimantes, cartouches d'encre, toners et accessoires informatiques à Abidjan. Livraison rapide, ouvert 24h/24.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#FAF8F4;
+    --paper-raised:#FFFFFF;
+    --ink:#181A1E;
+    --ink-soft:#53565C;
+    --line:#E2DED4;
+    --cyan:#0090C8;
+    --magenta:#D6006F;
+    --yellow:#E8AE00;
+    --navy:#1F4E9C;
+    --focus:#0090C8;
+    font-family:'Inter',system-ui,sans-serif;
+  }
+  :root:not([data-theme="light"]){
+    /* fallback if system prefers dark, unless explicitly forced light */
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --paper:#15161A;
+      --paper-raised:#1D1F24;
+      --ink:#F1EFE9;
+      --ink-soft:#B7B4AC;
+      --line:#33353B;
+      --cyan:#3FC1F0;
+      --magenta:#FF4FA0;
+      --yellow:#F5C542;
+      --navy:#7FA6E8;
+    }
+  }
+  :root[data-theme="dark"]{
+    --paper:#15161A;
+    --paper-raised:#1D1F24;
+    --ink:#F1EFE9;
+    --ink-soft:#B7B4AC;
+    --line:#33353B;
+    --cyan:#3FC1F0;
+    --magenta:#FF4FA0;
+    --yellow:#F5C542;
+    --navy:#7FA6E8;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block;}
+  a{color:inherit;text-decoration:none;}
+  h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;margin:0;line-height:1.12;letter-spacing:-0.01em;}
+  p{margin:0;}
+  ul{margin:0;padding:0;list-style:none;}
+  button{font-family:inherit;cursor:pointer;}
+  :focus-visible{outline:2px solid var(--focus);outline-offset:3px;}
+  .wrap{max-width:1160px;margin:0 auto;padding:0 24px;}
+  section{position:relative;}
+
+  /* ---- registration-mark motif (printing alignment marks) ---- */
+  .regmark{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:20px;height:20px;flex:none;
+  }
+  .regmark svg{width:100%;height:100%;}
+  .kicker{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:14px;font-weight:600;color:var(--ink-soft);
+    margin-bottom:14px;
+  }
+
+  /* ---- header ---- */
+  header{
+    position:sticky;top:0;z-index:50;
+    background:color-mix(in srgb, var(--paper) 88%, transparent);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .header-inner{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:14px 24px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:19px;white-space:nowrap;}
+  .brand .mark{width:38px;height:38px;flex:none;}
+  .brand small{display:block;font-family:'Inter',sans-serif;font-weight:500;font-size:11px;color:var(--ink-soft);letter-spacing:0.01em;}
+  nav.primary{display:flex;gap:28px;}
+  nav.primary a{font-size:15px;font-weight:500;color:var(--ink-soft);transition:color .15s;}
+  nav.primary a:hover{color:var(--ink);}
+  .header-actions{display:flex;align-items:center;gap:14px;}
+  .tel-chip{display:flex;align-items:center;gap:7px;font-size:14px;font-weight:600;white-space:nowrap;}
+  .tel-chip svg{width:16px;height:16px;color:var(--cyan);}
+  .btn{
+    display:inline-flex;align-items:center;justify-content:center;gap:8px;
+    padding:11px 20px;border-radius:3px;font-weight:600;font-size:14.5px;
+    border:1.5px solid var(--ink);white-space:nowrap;transition:transform .12s ease, background .15s;
+  }
+  .btn-solid{background:var(--ink);color:var(--paper);}
+  .btn-solid:hover{transform:translateY(-1px);}
+  .btn-line{background:transparent;color:var(--ink);}
+  .btn-line:hover{background:var(--ink);color:var(--paper);}
+  .btn-wa{border-color:#159A48;background:#159A48;color:#fff;}
+  .btn-wa:hover{background:#12833d;}
+  .menu-toggle{display:none;background:none;border:1.5px solid var(--line);border-radius:3px;width:40px;height:40px;align-items:center;justify-content:center;}
+  .menu-toggle svg{width:20px;height:20px;}
+
+  /* ---- hero ---- */
+  .hero{padding:76px 0 60px;overflow:hidden;}
+  .hero-grid{display:grid;grid-template-columns:1.15fr 0.85fr;gap:56px;align-items:center;}
+  .hero h1{font-size:clamp(34px,4.6vw,58px);font-weight:700;max-width:14ch;}
+  .hero .lede{margin-top:20px;font-size:18px;color:var(--ink-soft);max-width:46ch;}
+  .hero .cta-row{display:flex;gap:14px;margin-top:32px;flex-wrap:wrap;}
+  .hero-stats{display:flex;gap:30px;margin-top:44px;flex-wrap:wrap;}
+  .hero-stats div{border-left:2px solid var(--cyan);padding-left:14px;}
+  .hero-stats strong{display:block;font-family:'Space Grotesk',sans-serif;font-size:20px;}
+  .hero-stats span{font-size:13px;color:var(--ink-soft);}
+
+  .hero-art{position:relative;aspect-ratio:1/1;}
+  .hero-art svg{width:100%;height:100%;}
+
+  /* ---- brand strip ---- */
+  .brandstrip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;overflow:hidden;}
+  .brand-track{display:flex;gap:44px;white-space:nowrap;animation:scroll 26s linear infinite;width:max-content;}
+  .brand-track span{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;color:var(--ink-soft);letter-spacing:0.02em;}
+  @keyframes scroll{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  @media (prefers-reduced-motion: reduce){.brand-track{animation:none;overflow-x:auto;}}
+
+  /* ---- section heads ---- */
+  .section-head{max-width:640px;margin-bottom:44px;}
+  .section-head h2{font-size:clamp(26px,3.2vw,38px);}
+  .section-head p{margin-top:14px;font-size:16.5px;color:var(--ink-soft);}
+  .section-pad{padding:84px 0;}
+  .section-pad.alt{background:var(--paper-raised);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
+
+  /* ---- catalogue ---- */
+  .filters{display:flex;gap:10px;margin-bottom:34px;flex-wrap:wrap;}
+  .filter-btn{padding:9px 16px;border-radius:20px;border:1.5px solid var(--line);background:transparent;font-size:14px;font-weight:600;color:var(--ink-soft);}
+  .filter-btn.active{border-color:var(--ink);color:var(--ink);background:var(--paper-raised);}
+  .catalogue-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;}
+  .product{
+    border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--paper-raised);
+    display:flex;flex-direction:column;
+  }
+  .product .thumb{aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;padding:26px;border-bottom:1px solid var(--line);}
+  .product .thumb svg{width:78%;height:78%;}
+  .product .body{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;flex:1;}
+  .product .tag{font-size:12px;font-weight:600;color:var(--ink-soft);}
+  .product h3{font-size:17px;font-weight:600;font-family:'Inter',sans-serif;}
+  .product .price{margin-top:auto;padding-top:12px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+  .product .price strong{font-family:'Space Grotesk',sans-serif;font-size:15px;}
+  .order-link{font-size:13.5px;font-weight:600;color:var(--navy);border-bottom:1.5px solid var(--navy);padding-bottom:1px;}
+  .order-link:hover{opacity:0.7;}
+
+  /* ---- services ---- */
+  .services-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);}
+  .service{background:var(--paper-raised);padding:32px 26px;}
+  .service .icon{width:34px;height:34px;margin-bottom:20px;color:var(--cyan);}
+  .service h3{font-size:18px;margin-bottom:10px;font-family:'Inter',sans-serif;font-weight:600;}
+  .service p{font-size:14.5px;color:var(--ink-soft);}
+
+  /* ---- why us ---- */
+  .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:54px;align-items:start;}
+  .why-list{display:flex;flex-direction:column;gap:26px;}
+  .why-item{display:flex;gap:16px;}
+  .why-item .regmark{margin-top:2px;color:var(--magenta);}
+  .why-item h3{font-size:16.5px;margin-bottom:4px;font-family:'Inter',sans-serif;font-weight:600;}
+  .why-item p{font-size:14.5px;color:var(--ink-soft);}
+  .why-visual{border:1px solid var(--line);border-radius:4px;padding:36px;background:var(--paper-raised);}
+  .why-visual svg{width:100%;height:auto;}
+
+  /* ---- method ---- */
+  .method-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;}
+  .method-step{position:relative;padding-top:26px;border-top:2px solid var(--line);}
+  .method-step .num{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;color:var(--cyan);margin-bottom:14px;display:block;}
+  .method-step h3{font-size:17px;margin-bottom:8px;font-family:'Inter',sans-serif;font-weight:600;}
+  .method-step p{font-size:14px;color:var(--ink-soft);}
+
+  /* ---- faq ---- */
+  .faq-list{border-top:1px solid var(--line);max-width:760px;}
+  .faq-item{border-bottom:1px solid var(--line);}
+  .faq-q{width:100%;background:none;border:none;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;text-align:left;font-family:'Inter',sans-serif;font-weight:600;font-size:16px;color:var(--ink);}
+  .faq-q .plus{flex:none;width:20px;height:20px;position:relative;}
+  .faq-q .plus::before,.faq-q .plus::after{content:'';position:absolute;background:var(--ink);transition:transform .2s;}
+  .faq-q .plus::before{left:0;top:9px;width:20px;height:2px;}
+  .faq-q .plus::after{left:9px;top:0;width:2px;height:20px;}
+  .faq-item.open .plus::after{transform:rotate(90deg);opacity:0;}
+  .faq-a{max-height:0;overflow:hidden;transition:max-height .25s ease;}
+  .faq-a p{padding-bottom:22px;color:var(--ink-soft);font-size:15px;max-width:64ch;}
+
+  /* ---- cta banner ---- */
+  .cta-banner{background:var(--ink);color:var(--paper);padding:64px 0;text-align:center;}
+  :root[data-theme="dark"] .cta-banner, @media (prefers-color-scheme:dark){.cta-banner{background:var(--paper-raised);}}
+  .cta-banner h2{font-size:clamp(26px,3.4vw,36px);max-width:16ch;margin:0 auto;color:var(--paper);}
+  .cta-banner .cta-row{justify-content:center;margin-top:28px;}
+  .cta-banner .btn-line{border-color:var(--paper);color:var(--paper);}
+  .cta-banner .btn-line:hover{background:var(--paper);color:var(--ink);}
+  .cta-banner .btn-wa{border-color:#159A48;}
+
+  /* ---- contact ---- */
+  .contact-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:60px;}
+  .contact-info dl{display:flex;flex-direction:column;gap:20px;}
+  .contact-info dt{font-size:13px;font-weight:600;color:var(--ink-soft);margin-bottom:4px;}
+  .contact-info dd{margin:0;font-size:16px;font-weight:600;}
+  .contact-info .socials{display:flex;gap:14px;margin-top:30px;}
+  .contact-info .socials a{border:1.5px solid var(--line);border-radius:3px;padding:9px 14px;font-size:13.5px;font-weight:600;}
+  .form-card{background:var(--paper-raised);border:1px solid var(--line);border-radius:6px;padding:34px;}
+  .field{margin-bottom:18px;}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;}
+  .field input,.field select,.field textarea{
+    width:100%;padding:12px 14px;border:1.5px solid var(--line);border-radius:3px;
+    background:var(--paper);color:var(--ink);font-family:inherit;font-size:15px;
+  }
+  .field textarea{resize:vertical;min-height:100px;}
+  .field-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  .form-card .btn{width:100%;margin-top:6px;}
+
+  /* ---- footer ---- */
+  footer{border-top:1px solid var(--line);padding:56px 0 30px;}
+  .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:40px;margin-bottom:40px;}
+  .footer-grid h4{font-size:14px;margin-bottom:16px;}
+  .footer-grid ul{display:flex;flex-direction:column;gap:10px;}
+  .footer-grid a{font-size:14.5px;color:var(--ink-soft);}
+  .footer-grid a:hover{color:var(--ink);}
+  .foot-brand p{font-size:14.5px;color:var(--ink-soft);max-width:34ch;margin-top:14px;}
+  .foot-bottom{border-top:1px solid var(--line);padding-top:22px;font-size:13px;color:var(--ink-soft);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+
+  /* ---- floating whatsapp ---- */
+  .wa-float{
+    position:fixed;bottom:24px;right:24px;z-index:60;
+    width:58px;height:58px;border-radius:50%;background:#159A48;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 8px 20px rgba(0,0,0,.25);
+  }
+  .wa-float svg{width:28px;height:28px;color:#fff;}
+  .wa-float .pulse{position:absolute;inset:0;border-radius:50%;background:#159A48;opacity:.55;animation:pulse 2.4s ease-out infinite;}
+  @keyframes pulse{0%{transform:scale(1);opacity:.5;}100%{transform:scale(1.9);opacity:0;}}
+  @media (prefers-reduced-motion:reduce){.pulse{animation:none;display:none;}}
+
+  /* ---- responsive ---- */
+  @media (max-width:920px){
+    nav.primary{display:none;}
+    .header-actions .btn-line{display:none;}
+    .menu-toggle{display:flex;}
+    .hero-grid{grid-template-columns:1fr;}
+    .hero-art{max-width:340px;margin:0 auto;}
+    .catalogue-grid{grid-template-columns:repeat(2,1fr);}
+    .services-grid{grid-template-columns:repeat(2,1fr);}
+    .why-grid{grid-template-columns:1fr;}
+    .method-grid{grid-template-columns:repeat(2,1fr);}
+    .contact-grid{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:560px){
+    .catalogue-grid{grid-template-columns:1fr;}
+    .services-grid{grid-template-columns:1fr;}
+    .method-grid{grid-template-columns:1fr 1fr;}
+    .field-row{grid-template-columns:1fr;}
+    .footer-grid{grid-template-columns:1fr;}
+    .tel-chip{display:none;}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner wrap">
+    <a href="#accueil" class="brand">
+      <svg class="mark" viewBox="0 0 40 40" fill="none">
+        <circle cx="17" cy="19" r="11" fill="var(--navy)"/>
+        <path d="M6 19a11 11 0 0 1 18-8.5" stroke="var(--cyan)" stroke-width="2" fill="none" stroke-linecap="round"/>
+        <ellipse cx="17" cy="19" rx="15" ry="6" stroke="var(--ink)" stroke-width="1.6" fill="none" transform="rotate(-18 17 19)"/>
+        <rect x="19" y="22" width="15" height="10" rx="1.4" fill="var(--paper-raised)" stroke="var(--ink)" stroke-width="1.6"/>
+        <rect x="22" y="18.5" width="9" height="5" rx="0.8" fill="var(--ink)"/>
+        <rect x="23.2" y="26" width="6.6" height="2.4" fill="var(--magenta)"/>
+      </svg>
+      <span>GTI<small>Guikiné Tech Ivoire</small></span>
+    </a>
+    <nav class="primary">
+      <a href="#accueil">Accueil</a>
+      <a href="#catalogue">Catalogue</a>
+      <a href="#services">Services</a>
+      <a href="#apropos">À propos</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <div class="header-actions">
+      <a class="tel-chip" href="tel:+2250757600537">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1.5 1.5 0 0 1 1.5-.4c1.4.4 2.8.6 4.3.6a1.5 1.5 0 0 1 1.5 1.5V21a1.5 1.5 0 0 1-1.5 1.5C10.9 22.5 1.5 13.1 1.5 1.5A1.5 1.5 0 0 1 3 0h4.1a1.5 1.5 0 0 1 1.5 1.5c0 1.5.2 2.9.6 4.3a1.5 1.5 0 0 1-.4 1.5L6.6 10.8Z"/></svg>
+        07 57 60 05 37
+      </a>
+      <a class="btn btn-line" href="#contact">Demander un devis</a>
+      <a class="btn btn-wa" href="https://wa.me/2250757600537?text=Bonjour%2C%20je%20souhaite%20un%20devis." target="_blank" rel="noopener">WhatsApp</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Ouvrir le menu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      </button>
+    </div>
+  </div>
+  <div id="mobileMenu" style="display:none;border-top:1px solid var(--line);padding:16px 24px;">
+    <nav style="display:flex;flex-direction:column;gap:14px;">
+      <a href="#accueil">Accueil</a>
+      <a href="#catalogue">Catalogue</a>
+      <a href="#services">Services</a>
+      <a href="#apropos">À propos</a>
+      <a href="#contact">Contact</a>
+      <a class="tel-chip" style="display:flex" href="tel:+2250757600537">07 57 60 05 37</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="accueil">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="kicker">
+          <span class="regmark"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="var(--cyan)" stroke-width="1.4"/><line x1="10" y1="0" x2="10" y2="20" stroke="var(--cyan)" stroke-width="1.4"/><line x1="0" y1="10" x2="20" y2="10" stroke="var(--cyan)" stroke-width="1.4"/></svg></span>
+          Vente de matériel informatique — Abidjan
+        </span>
+        <h1>Vos imprimantes et cartouches, toujours disponibles à Abidjan.</h1>
+        <p class="lede">GTI – Guikiné Tech Ivoire fournit particuliers et bureaux en imprimantes, cartouches d'encre, toners et accessoires informatiques, avec conseil sur mesure et livraison rapide.</p>
+        <div class="cta-row">
+          <a class="btn btn-solid" href="#catalogue">Voir le catalogue</a>
+          <a class="btn btn-wa" href="https://wa.me/2250757600537?text=Bonjour%2C%20pouvez-vous%20me%20pr%C3%A9senter%20votre%20catalogue%20%3F" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.6-2.9-1.6-3.9-3.1-.1-.2-.1-.4.1-.6.2-.2.5-.5.7-.7.2-.2.3-.5.1-.7-.1-.2-.7-1.8-1-2.4-.2-.5-.4-.4-.6-.4-.6 0-1 .1-1.4.5-1.4 1.5-1 3.5.2 5.1 1.5 2 3.5 3.4 5.9 3.9 1.7.4 2.9-.3 3.3-.7.4-.4.5-1.4.3-1.7-.1-.2-.4-.3-.7-.4Z"/><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-2.8.7.7-2.7-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
+            Écrire sur WhatsApp
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div><strong>Stock disponible</strong><span>Références courantes en rayon</span></div>
+          <div><strong>Ouvert 24h/24</strong><span>Une équipe joignable en continu</span></div>
+          <div><strong>Livraison à Abidjan</strong><span>Toutes communes</span></div>
+        </div>
+      </div>
+      <div class="hero-art" aria-hidden="true">
+        <svg viewBox="0 0 360 360" fill="none">
+          <rect x="70" y="180" width="220" height="90" rx="6" fill="var(--paper-raised)" stroke="var(--ink)" stroke-width="2"/>
+          <rect x="95" y="150" width="170" height="45" rx="4" fill="var(--paper-raised)" stroke="var(--ink)" stroke-width="2"/>
+          <rect x="150" y="120" width="60" height="34" rx="2" fill="var(--ink)"/>
+          <rect x="150" y="215" width="60" height="16" fill="var(--cyan)"/>
+          <rect x="150" y="235" width="60" height="16" fill="var(--magenta)"/>
+          <circle cx="86" cy="200" r="6" fill="var(--yellow)"/>
+          <g stroke="var(--ink)" stroke-width="1.4" opacity=".5">
+            <circle cx="300" cy="80" r="14" fill="none"/>
+            <line x1="300" y1="60" x2="300" y2="100"/>
+            <line x1="280" y1="80" x2="320" y2="80"/>
+          </g>
+          <g stroke="var(--ink)" stroke-width="1.4" opacity=".5">
+            <circle cx="52" cy="90" r="10" fill="none"/>
+            <line x1="52" y1="76" x2="52" y2="104"/>
+            <line x1="38" y1="90" x2="66" y2="90"/>
+          </g>
+          <path d="M60 300h240" stroke="var(--line)" stroke-width="2"/>
+          <circle cx="60" cy="300" r="4" fill="var(--cyan)"/>
+          <circle cx="300" cy="300" r="4" fill="var(--magenta)"/>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= BRAND STRIP ================= -->
+  <div class="brandstrip">
+    <div class="brand-track">
+      <span>HP</span><span>Canon</span><span>Epson</span><span>Samsung</span><span>Dell</span><span>Lenovo</span><span>APC</span><span>Kingston</span>
+      <span>HP</span><span>Canon</span><span>Epson</span><span>Samsung</span><span>Dell</span><span>Lenovo</span><span>APC</span><span>Kingston</span>
+    </div>
+  </div>
+
+  <!-- ================= CATALOGUE ================= -->
+  <section class="section-pad" id="catalogue">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker"><span class="regmark"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="var(--magenta)" stroke-width="1.4"/><line x1="10" y1="0" x2="10" y2="20" stroke="var(--magenta)" stroke-width="1.4"/><line x1="0" y1="10" x2="20" y2="10" stroke="var(--magenta)" stroke-width="1.4"/></svg></span>Catalogue</span>
+        <h2>Le matériel qui fait tourner votre bureau</h2>
+        <p>Imprimantes, cartouches, toners et accessoires. Chaque commande peut être finalisée directement sur WhatsApp.</p>
+      </div>
+
+      <div class="filters" id="filters">
+        <button class="filter-btn active" data-filter="all">Tous</button>
+        <button class="filter-btn" data-filter="imprimantes">Imprimantes</button>
+        <button class="filter-btn" data-filter="cartouches">Cartouches &amp; toners</button>
+        <button class="filter-btn" data-filter="accessoires">Accessoires</button>
+      </div>
+
+      <div class="catalogue-grid" id="catalogueGrid">
+        <!-- product cards injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SERVICES ================= -->
+  <section class="section-pad alt" id="services">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker"><span class="regmark"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="var(--yellow)" stroke-width="1.4"/><line x1="10" y1="0" x2="10" y2="20" stroke="var(--yellow)" stroke-width="1.4"/><line x1="0" y1="10" x2="20" y2="10" stroke="var(--yellow)" stroke-width="1.4"/></svg></span>Nos services</span>
+        <h2>Bien plus qu'un point de vente</h2>
+        <p>De l'achat à l'installation, on vous accompagne pour que votre matériel fonctionne, tout simplement.</p>
+      </div>
+      <div class="services-grid">
+        <div class="service">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="4" y="9" width="16" height="8" rx="1"/><path d="M7 9V5a1 1 0 0 1 1-1h8a1 1 0 0 1 1 1v4"/><rect x="8" y="17" width="8" height="4"/><circle cx="16" cy="12.5" r="1"/></svg>
+          <h3>Vente de matériel</h3>
+          <p>Imprimantes, PC et périphériques de marques reconnues (HP, Canon, Epson, Dell, Lenovo…).</p>
+        </div>
+        <div class="service">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="6" y="3" width="6" height="10" rx="1.5"/><path d="M9 13v3"/><path d="M6 20h6"/><path d="M15 8h5M15 12h5M15 16h5"/></svg>
+          <h3>Cartouches &amp; consommables</h3>
+          <p>Encre, toners et papier — d'origine ou compatibles, pour ne jamais tomber en rupture.</p>
+        </div>
+        <div class="service">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3v4M5 8l3 2M19 8l-3 2M5 16l3-2M19 16l-3-2M12 17v4"/><circle cx="12" cy="12" r="4"/></svg>
+          <h3>Installation &amp; configuration</h3>
+          <p>Mise en route de votre imprimante, connexion réseau et partage entre plusieurs postes.</p>
+        </div>
+        <div class="service">
+          <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 7h11v8H3z"/><path d="M14 10h4l3 3v2h-7z"/><circle cx="7" cy="18" r="1.6"/><circle cx="17.5" cy="18" r="1.6"/></svg>
+          <h3>Livraison à Abidjan</h3>
+          <p>Commande livrée directement à votre bureau ou domicile, dans toutes les communes.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= WHY US / A PROPOS ================= -->
+  <section class="section-pad" id="apropos">
+    <div class="wrap why-grid">
+      <div>
+        <span class="kicker"><span class="regmark"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="var(--navy)" stroke-width="1.4"/><line x1="10" y1="0" x2="10" y2="20" stroke="var(--navy)" stroke-width="1.4"/><line x1="0" y1="10" x2="20" y2="10" stroke="var(--navy)" stroke-width="1.4"/></svg></span>Pourquoi GTI</span>
+        <h2 style="margin-bottom:30px;">Une boutique locale, pensée pour le dépannage rapide</h2>
+        <div class="why-list">
+          <div class="why-item">
+            <span class="regmark"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="10" y1="0" x2="10" y2="20" stroke="currentColor" stroke-width="1.4"/><line x1="0" y1="10" x2="20" y2="10" stroke="currentColor" stroke-width="1.4"/></svg></span>
+            <div><h3>Stock disponible</h3><p>Les cartouches et références les plus demandées restent en rayon pour un dépannage immédiat.</p></div>
+          </div>
+          <div class="why-item">
+            <span class="regmark"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="10" y1="0" x2="10" y2="20" stroke="currentColor" stroke-width="1.4"/><line x1="0" y1="10" x2="20" y2="10" stroke="currentColor" stroke-width="1.4"/></svg></span>
+            <div><h3>Disponible 24h/24</h3><p>Une équipe joignable à toute heure sur WhatsApp pour vos urgences bureautiques.</p></div>
+          </div>
+          <div class="why-item">
+            <span class="regmark"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="10" y1="0" x2="10" y2="20" stroke="currentColor" stroke-width="1.4"/><line x1="0" y1="10" x2="20" y2="10" stroke="currentColor" stroke-width="1.4"/></svg></span>
+            <div><h3>Conseil sur mesure</h3><p>On vous aide à choisir la bonne cartouche ou le bon modèle, sans vous vendre plus que nécessaire.</p></div>
+          </div>
+          <div class="why-item">
+            <span class="regmark"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="1.4"/><line x1="10" y1="0" x2="10" y2="20" stroke="currentColor" stroke-width="1.4"/><line x1="0" y1="10" x2="20" y2="10" stroke="currentColor" stroke-width="1.4"/></svg></span>
+            <div><h3>Basée à Abidjan</h3><p>Boutique à Treichville, à l'écoute des besoins réels des particuliers et des bureaux ivoiriens.</p></div>
+          </div>
+        </div>
+      </div>
+      <div class="why-visual" aria-hidden="true">
+        <svg viewBox="0 0 320 260" fill="none">
+          <rect x="20" y="20" width="120" height="90" rx="4" fill="none" stroke="var(--ink)" stroke-width="1.6"/>
+          <rect x="34" y="38" width="30" height="54" fill="var(--cyan)"/>
+          <rect x="70" y="38" width="30" height="54" fill="var(--magenta)"/>
+          <rect x="34" y="38" width="66" height="54" fill="none" stroke="var(--ink)" stroke-width="1.2" opacity=".3"/>
+          <rect x="170" y="20" width="120" height="90" rx="4" fill="none" stroke="var(--ink)" stroke-width="1.6"/>
+          <rect x="184" y="38" width="30" height="54" fill="var(--yellow)"/>
+          <rect x="220" y="38" width="46" height="54" fill="var(--ink)" opacity=".85"/>
+          <line x1="20" y1="150" x2="290" y2="150" stroke="var(--line)" stroke-width="2"/>
+          <circle cx="20" cy="150" r="5" fill="var(--cyan)"/>
+          <circle cx="105" cy="150" r="5" fill="var(--magenta)"/>
+          <circle cx="190" cy="150" r="5" fill="var(--yellow)"/>
+          <circle cx="290" cy="150" r="5" fill="var(--ink)"/>
+          <rect x="40" y="180" width="240" height="46" rx="4" fill="none" stroke="var(--ink)" stroke-width="1.6"/>
+          <text x="160" y="208" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="14" fill="var(--ink)">GTI · Abidjan</text>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= METHODE ================= -->
+  <section class="section-pad alt">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker"><span class="regmark"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="var(--cyan)" stroke-width="1.4"/><line x1="10" y1="0" x2="10" y2="20" stroke="var(--cyan)" stroke-width="1.4"/><line x1="0" y1="10" x2="20" y2="10" stroke="var(--cyan)" stroke-width="1.4"/></svg></span>Notre méthode</span>
+        <h2>De votre message à la livraison</h2>
+      </div>
+      <div class="method-grid">
+        <div class="method-step"><span class="num">01</span><h3>Contact</h3><p>Vous nous écrivez sur WhatsApp, par téléphone ou email avec votre besoin.</p></div>
+        <div class="method-step"><span class="num">02</span><h3>Vérification du stock</h3><p>Nous confirmons la disponibilité et vous proposons la meilleure option.</p></div>
+        <div class="method-step"><span class="num">03</span><h3>Commande &amp; livraison</h3><p>Vous validez, nous livrons à l'adresse indiquée, partout à Abidjan.</p></div>
+        <div class="method-step"><span class="num">04</span><h3>Support après-vente</h3><p>Nous restons disponibles en cas de souci avec votre matériel.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="section-pad">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker"><span class="regmark"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="var(--magenta)" stroke-width="1.4"/><line x1="10" y1="0" x2="10" y2="20" stroke="var(--magenta)" stroke-width="1.4"/><line x1="0" y1="10" x2="20" y2="10" stroke="var(--magenta)" stroke-width="1.4"/></svg></span>Questions fréquentes</span>
+        <h2>Ce qu'on nous demande le plus</h2>
+      </div>
+      <div class="faq-list" id="faqList">
+        <div class="faq-item">
+          <button class="faq-q">Livrez-vous partout à Abidjan ?<span class="plus"></span></button>
+          <div class="faq-a"><p>Oui, nous livrons dans toutes les communes d'Abidjan. Écrivez-nous votre adresse sur WhatsApp pour connaître le délai.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Vendez-vous des cartouches d'origine ou compatibles ?<span class="plus"></span></button>
+          <div class="faq-a"><p>Les deux. Selon votre budget, nous proposons des cartouches et toners d'origine ainsi que des références compatibles de qualité.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Puis-je commander sans passer en boutique ?<span class="plus"></span></button>
+          <div class="faq-a"><p>Oui, la majorité de nos clients commandent directement sur WhatsApp. Nous confirmons la disponibilité puis organisons la livraison.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Le magasin est-il vraiment ouvert 24h/24 ?<span class="plus"></span></button>
+          <div class="faq-a"><p>Oui, une personne reste joignable en continu sur WhatsApp et par téléphone pour vos demandes et urgences bureautiques.</p></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Le matériel vendu est-il garanti ?<span class="plus"></span></button>
+          <div class="faq-a"><p>Chaque article vendu bénéficie d'un support après achat. En cas de souci, contactez-nous directement sur WhatsApp.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CTA BANNER ================= -->
+  <section class="cta-banner">
+    <div class="wrap">
+      <h2>Besoin d'une cartouche ou d'une imprimante rapidement ?</h2>
+      <div class="cta-row">
+        <a class="btn btn-wa" href="https://wa.me/2250757600537?text=Bonjour%20GTI%2C%20je%20souhaite%20un%20devis." target="_blank" rel="noopener">Écrire sur WhatsApp</a>
+        <a class="btn btn-line" href="tel:+2250757600537">Appeler maintenant</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= CONTACT ================= -->
+  <section class="section-pad" id="contact">
+    <div class="wrap contact-grid">
+      <div class="contact-info">
+        <span class="kicker"><span class="regmark"><svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="8" fill="none" stroke="var(--navy)" stroke-width="1.4"/><line x1="10" y1="0" x2="10" y2="20" stroke="var(--navy)" stroke-width="1.4"/><line x1="0" y1="10" x2="20" y2="10" stroke="var(--navy)" stroke-width="1.4"/></svg></span>Contact</span>
+        <h2 style="margin-bottom:26px;">Parlons de votre besoin</h2>
+        <dl>
+          <div><dt>Téléphone / WhatsApp</dt><dd><a href="tel:+2250757600537">+225 07 57 60 05 37</a></dd></div>
+          <div><dt>Email</dt><dd><a href="mailto:guikinebakary7@gmail.com">guikinebakary7@gmail.com</a></dd></div>
+          <div><dt>Adresse</dt><dd>14 Av. de la Reine Pokou, Abidjan, Côte d'Ivoire</dd></div>
+          <div><dt>Horaires</dt><dd>Ouvert 24h/24</dd></div>
+        </dl>
+        <div class="socials">
+          <a href="https://www.facebook.com" target="_blank" rel="noopener">Facebook</a>
+          <a href="https://wa.me/2250757600537" target="_blank" rel="noopener">WhatsApp</a>
+        </div>
+      </div>
+      <form class="form-card" id="contactForm" action="mailto:guikinebakary7@gmail.com" method="get" enctype="text/plain">
+        <h3 style="font-family:'Inter',sans-serif;font-size:18px;margin-bottom:20px;">Envoyez-nous un message</h3>
+        <div class="field-row">
+          <div class="field"><label for="fname">Nom complet</label><input id="fname" name="Nom" required></div>
+          <div class="field"><label for="fphone">Téléphone</label><input id="fphone" name="Telephone" required></div>
+        </div>
+        <div class="field"><label for="femail">Email</label><input id="femail" name="Email" type="email"></div>
+        <div class="field">
+          <label for="fsubject">Sujet</label>
+          <select id="fsubject" name="Sujet">
+            <option>Achat de matériel (catalogue)</option>
+            <option>Cartouches &amp; consommables</option>
+            <option>Installation / configuration</option>
+            <option>Autre demande</option>
+          </select>
+        </div>
+        <div class="field"><label for="fmessage">Message</label><textarea id="fmessage" name="body" required></textarea></div>
+        <button type="submit" class="btn btn-solid">Envoyer le message</button>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="foot-brand">
+        <div class="brand">
+          <svg class="mark" viewBox="0 0 40 40" fill="none">
+            <circle cx="17" cy="19" r="11" fill="var(--navy)"/>
+            <ellipse cx="17" cy="19" rx="15" ry="6" stroke="var(--ink)" stroke-width="1.6" fill="none" transform="rotate(-18 17 19)"/>
+            <rect x="19" y="22" width="15" height="10" rx="1.4" fill="var(--paper)" stroke="var(--ink)" stroke-width="1.6"/>
+          </svg>
+          <span>GTI<small>Guikiné Tech Ivoire</small></span>
+        </div>
+        <p>Vente de matériel informatique et consommables à Abidjan — imprimantes, cartouches, toners et accessoires.</p>
+      </div>
+      <div>
+        <h4>Navigation</h4>
+        <ul>
+          <li><a href="#accueil">Accueil</a></li>
+          <li><a href="#catalogue">Catalogue</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+2250757600537">07 57 60 05 37</a></li>
+          <li><a href="mailto:guikinebakary7@gmail.com">guikinebakary7@gmail.com</a></li>
+          <li><a href="https://wa.me/2250757600537" target="_blank" rel="noopener">WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© <span id="year"></span> GTI — Guikiné Tech Ivoire. Tous droits réservés.</span>
+      <span>Treichville, Abidjan, Côte d'Ivoire</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/2250757600537?text=Bonjour%20GTI%2C%20j%27ai%20une%20question." target="_blank" rel="noopener" aria-label="Contacter sur WhatsApp">
+  <span class="pulse"></span>
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.1-1.7-.8-1.9-.9-.3-.1-.5-.1-.7.1-.2.3-.7 1-.9 1.2-.2.2-.3.2-.6.1-1.6-.6-2.9-1.6-3.9-3.1-.1-.2-.1-.4.1-.6.2-.2.5-.5.7-.7.2-.2.3-.5.1-.7-.1-.2-.7-1.8-1-2.4-.2-.5-.4-.4-.6-.4-.6 0-1 .1-1.4.5-1.4 1.5-1 3.5.2 5.1 1.5 2 3.5 3.4 5.9 3.9 1.7.4 2.9-.3 3.3-.7.4-.4.5-1.4.3-1.7-.1-.2-.4-.3-.7-.4Z"/><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2c-1.6 0-3.1-.4-4.4-1.2l-.3-.2-2.8.7.7-2.7-.2-.3A8.2 8.2 0 1 1 12 20.2Z"/></svg>
+</a>
+
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+
+// mobile menu
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+menuToggle.addEventListener('click', ()=>{
+  mobileMenu.style.display = mobileMenu.style.display === 'none' ? 'block' : 'none';
+});
+
+// FAQ accordion
+document.querySelectorAll('.faq-item').forEach(item=>{
+  const q = item.querySelector('.faq-q');
+  const a = item.querySelector('.faq-a');
+  q.addEventListener('click', ()=>{
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i=>{
+      i.classList.remove('open');
+      i.querySelector('.faq-a').style.maxHeight = null;
+    });
+    if(!isOpen){
+      item.classList.add('open');
+      a.style.maxHeight = a.scrollHeight + 'px';
+    }
+  });
+});
+
+// Product catalogue
+const products = [
+  {
+    cat: 'imprimantes', tag: 'Imprimantes', name: 'Imprimante multifonction HP LaserJet Pro',
+    price: 'Sur devis',
+    wa: 'Bonjour, je suis intéressé(e) par l\\'Imprimante multifonction HP LaserJet Pro. Quel est le prix et est-elle disponible ?',
+    icon: `<rect x="10" y="34" width="80" height="46" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><rect x="22" y="14" width="56" height="24" rx="2" fill="none" stroke="currentColor" stroke-width="3"/><rect x="30" y="52" width="40" height="10" fill="var(--cyan)"/><circle cx="78" cy="42" r="2.4" fill="currentColor"/>`
+  },
+  {
+    cat: 'imprimantes', tag: 'Imprimantes', name: 'Imprimante compacte Canon',
+    price: 'Sur devis',
+    wa: 'Bonjour, je suis intéressé(e) par l\\'imprimante compacte Canon. Quel est le prix et est-elle disponible ?',
+    icon: `<rect x="14" y="30" width="72" height="42" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><rect x="14" y="30" width="72" height="14" fill="var(--magenta)" opacity=".85"/><rect x="30" y="56" width="40" height="8" fill="currentColor" opacity=".2"/><circle cx="76" cy="37" r="2" fill="#fff"/>`
+  },
+  {
+    cat: 'cartouches', tag: 'Cartouches', name: 'Cartouche Epson 103 — Noir',
+    price: 'Sur devis',
+    wa: 'Bonjour, je suis intéressé(e) par la cartouche Epson 103 Noir. Quel est le prix et est-elle disponible ?',
+    icon: `<rect x="34" y="14" width="32" height="72" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><rect x="34" y="46" width="32" height="40" fill="currentColor"/><rect x="44" y="8" width="12" height="10" fill="currentColor"/>`
+  },
+  {
+    cat: 'cartouches', tag: 'Cartouches', name: 'Cartouche Epson 103 — Cyan',
+    price: 'Sur devis',
+    wa: 'Bonjour, je suis intéressé(e) par la cartouche Epson 103 Cyan. Quel est le prix et est-elle disponible ?',
+    icon: `<rect x="34" y="14" width="32" height="72" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><rect x="34" y="46" width="32" height="40" fill="var(--cyan)"/><rect x="44" y="8" width="12" height="10" fill="currentColor"/>`
+  },
+  {
+    cat: 'cartouches', tag: 'Cartouches', name: 'Cartouche Epson 103 — Magenta',
+    price: 'Sur devis',
+    wa: 'Bonjour, je suis intéressé(e) par la cartouche Epson 103 Magenta. Quel est le prix et est-elle disponible ?',
+    icon: `<rect x="34" y="14" width="32" height="72" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><rect x="34" y="46" width="32" height="40" fill="var(--magenta)"/><rect x="44" y="8" width="12" height="10" fill="currentColor"/>`
+  },
+  {
+    cat: 'cartouches', tag: 'Cartouches', name: 'Cartouche Epson 103 — Jaune',
+    price: 'Sur devis',
+    wa: 'Bonjour, je suis intéressé(e) par la cartouche Epson 103 Jaune. Quel est le prix et est-elle disponible ?',
+    icon: `<rect x="34" y="14" width="32" height="72" rx="4" fill="none" stroke="currentColor" stroke-width="3"/><rect x="34" y="46" width="32" height="40" fill="var(--yellow)"/><rect x="44" y="8" width="12" height="10" fill="currentColor"/>`
+  },
+  {
+    cat: 'cartouches', tag: 'Toners', name: 'Toner HP LaserJet 410A — Noir',
+    price: 'Sur devis',
+    wa: 'Bonjour, je suis intéressé(e) par le toner HP LaserJet 410A Noir. Quel est le prix et est-il disponible ?',
+    icon: `<rect x="16" y="30" width="68" height="40" rx="6" fill="currentColor"/><rect x="16" y="30" width="68" height="10" rx="4" fill="none" stroke="currentColor" stroke-width="3"/>`
+  },
+  {
+    cat: 'cartouches', tag: 'Toners', name: 'Toner HP LaserJet 410A — Couleurs',
+    price: 'Sur devis',
+    wa: 'Bonjour, je suis intéressé(e) par les toners HP LaserJet 410A couleurs. Quel est le prix et sont-ils disponibles ?',
+    icon: `<rect x="14" y="30" width="22" height="40" rx="4" fill="var(--cyan)"/><rect x="39" y="30" width="22" height="40" rx="4" fill="var(--magenta)"/><rect x="64" y="30" width="22" height="40" rx="4" fill="var(--yellow)"/>`
+  },
+  {
+    cat: 'accessoires', tag: 'Accessoires', name: 'Kit de câbles et adaptateurs informatiques',
+    price: 'Sur devis',
+    wa: 'Bonjour, je suis intéressé(e) par le kit de câbles et adaptateurs informatiques. Quel est le prix et est-il disponible ?',
+    icon: `<circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" stroke-width="3"/><path d="M35 50h30M50 35v30" stroke="currentColor" stroke-width="3"/><circle cx="50" cy="50" r="6" fill="var(--cyan)"/>`
+  }
+];
+
+const grid = document.getElementById('catalogueGrid');
+function render(filter){
+  grid.innerHTML = products
+    .filter(p => filter === 'all' || p.cat === filter)
+    .map(p => `
+      <div class="product" data-cat="${p.cat}">
+        <div class="thumb"><svg viewBox="0 0 100 100">${p.icon}</svg></div>
+        <div class="body">
+          <span class="tag">${p.tag}</span>
+          <h3>${p.name}</h3>
+          <div class="price">
+            <strong>${p.price}</strong>
+            <a class="order-link" target="_blank" rel="noopener" href="https://wa.me/2250757600537?text=${encodeURIComponent(p.wa)}">Commander</a>
+          </div>
+        </div>
+      </div>
+    `).join('');
+}
+render('all');
+
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    render(btn.dataset.filter);
+  });
+});
+</script>
+</body>
+</html>
